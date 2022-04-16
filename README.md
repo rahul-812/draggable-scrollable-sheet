@@ -6,11 +6,54 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## How It works
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![animal_data](https://user-images.githubusercontent.com/85408038/163686739-cc57132f-b747-4127-8564-547034c56be4.gif)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## DraggableScrollableSheet
+
+basic structure of this widget is
+
+```dart
+DraggableScrollableSheet(
+  initialChildSize: 0.20,              // range between 0.0 - 1.0
+  minChildSize: 0.20,                  // range between 0.0 - 1.0
+  maxChildSize: 0.8,                   // range between 0.0 - 1.0
+  builder: (context, scrollController) {
+    // build and return your widget
+  },
+);
+```
+
+now we can use any widget as a child of ```DraggableScrollableSheet``` widget
+
+a perfect example would be using ```ListView```
+
+```dart
+builder: (context, scrollController) {
+return ListView(
+  physics: const BouncingScrollPhysics(),
+  controller: scrollController,
+  children: [
+    // ...
+  ],
+);
+```
+
+It is usefull to wrap ```DraggableScrollableSheet```with a ```dContaner``` and a ```Stack``` widget like:
+
+```dart
+Stack(
+  children: [
+    // ....
+    Container(
+      decoration: BoxDecoration(
+        // ...
+      ),
+      DraggableScrollableSheet(
+        // ...
+      ),
+    ),
+  ],
+),
+```
