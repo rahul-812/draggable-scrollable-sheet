@@ -31,13 +31,14 @@ a perfect example would be using ```ListView```
 
 ```dart
 builder: (context, scrollController) {
-return ListView(
-  physics: const BouncingScrollPhysics(),
-  controller: scrollController,
-  children: [
-    // ...
-  ],
-);
+  return ListView(
+    physics: const BouncingScrollPhysics(),
+    controller: scrollController,
+    children: [
+      // ...
+    ],
+  );
+}
 ```
 
 It is usefull to wrap ```DraggableScrollableSheet```with a ```dContaner``` and a ```Stack``` widget like:
