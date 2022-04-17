@@ -16,24 +16,24 @@ basic structure of this widget is
 
 ```dart
 DraggableScrollableSheet(
-  initialChildSize: 0.20,              // range between 0.0 - 1.0
-  minChildSize: 0.20,                  // range between 0.0 - 1.0
-  maxChildSize: 0.8,                   // range between 0.0 - 1.0
+  initialChildSize: ,              // range between 0.0 - 1.0
+  minChildSize: ,                  // range between 0.0 - 1.0
+  maxChildSize: ,                   // range between 0.0 - 1.0
   builder: (context, scrollController) {
-    // build and return your widget
+    // return Widget;
   },
 );
 ```
 
-now we can use any widget as a child of ```DraggableScrollableSheet``` widget
+We can use any widget as a child of ```DraggableScrollableSheet``` widget
 
-a perfect example would be using ```ListView```
+a perfect example is to use ```ListView``` as a child
 
 ```dart
 builder: (context, scrollController) {
   return ListView(
     physics: const BouncingScrollPhysics(),
-    controller: scrollController,
+    controller: scrollController, // enables scrolling 
     children: [
       // ...
     ],
@@ -51,7 +51,7 @@ Stack(
       decoration: BoxDecoration(
         // ...
       ),
-      DraggableScrollableSheet(
+      child: DraggableScrollableSheet(
         // ...
       ),
     ),
