@@ -80,62 +80,91 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class BottomScrollableSheet extends StatelessWidget {
+class BottomScrollableSheet extends StatefulWidget {
   const BottomScrollableSheet({Key? key, required this.animal})
       : super(key: key);
   final Animal animal;
 
   @override
+  State<BottomScrollableSheet> createState() => _BottomScrollableSheetState();
+}
+
+class _BottomScrollableSheetState extends State<BottomScrollableSheet> {
+  bool _showingUpArrow = true;
+  @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.20,
-      minChildSize: 0.20,
-      maxChildSize: 0.8,
-      builder: (context, scrollController) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFFFFFFFF),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(14.0),
-              topRight: Radius.circular(14.0),
-            ),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, -5.0),
-                blurRadius: 6.0,
-                color: Color(0xFFEBEBEB),
-              )
-            ],
-          ),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            controller: scrollController,
-            children: [
-              const Center(
-                child: Divider(
-                  height: 25.0,
-                  endIndent: 160.0,
-                  indent: 160.0,
-                  thickness: 3.0,
-                  color: Color(0xFFC2C2C2),
-                ),
-              ),
-              ListTile(
-                title: const Text("Species"),
-                subtitle: Text(animal.species),
-              ),
-              ListTile(
-                title: const Text("Body Weight"),
-                subtitle: Text(animal.bodyWeight),
-              ),
-              ListTile(
-                title: const Text("Brain Weight"),
-                subtitle: Text(animal.brainWeight),
-              ),
-            ],
-          ),
-        );
+    return NotificationListener<DraggableScrollableNotification>(
+      onNotification: (DraggableScrollableNotification notification) {
+        if (notification.extent <= 0.21) {
+          if (!_showingUpArrow) {
+            setState(() => _showingUpArrow = true);
+          }
+        } else if (_showingUpArrow) {
+          setState(() => _showingUpArrow = false);
+        }
+        return true;
       },
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.2,
+        minChildSize: 0.2,
+        maxChildSize: 0.8,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(14.0),
+                topRight: Radius.circular(14.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, -5.0),
+                  blurRadius: 6.0,
+                  color: Color(0xFFEBEBEB),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      DraggableScrollableActuator.reset(context);
+                    });
+                  },
+                  icon: Icon(
+                    _showingUpArrow
+                        ?Icons.keyboard_arrow_up_rounded
+                        : Icons.keyboard_arrow_down_rounded,
+                    color: Colors.grey[700],
+                    size: 34.0,
+                  ),
+                ),
+                Expanded(
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: scrollController,
+                    children: [
+                      ListTile(
+                        title: const Text("Species"),
+                        subtitle: Text(widget.animal.species),
+                      ),
+                      ListTile(
+                        title: const Text("Body Weight"),
+                        subtitle: Text(widget.animal.bodyWeight),
+                      ),
+                      ListTile(
+                        title: const Text("Brain Weight"),
+                        subtitle: Text(widget.animal.brainWeight),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
