@@ -126,19 +126,12 @@ class _BottomScrollableSheetState extends State<BottomScrollableSheet> {
             ),
             child: Column(
               children: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      DraggableScrollableActuator.reset(context);
-                    });
-                  },
-                  icon: Icon(
-                    _showingUpArrow
-                        ?Icons.keyboard_arrow_up_rounded
-                        : Icons.keyboard_arrow_down_rounded,
-                    color: Colors.grey[700],
-                    size: 34.0,
-                  ),
+                Icon(
+                  _showingUpArrow
+                      ?Icons.keyboard_arrow_up_rounded
+                      : Icons.keyboard_arrow_down_rounded,
+                  color: Colors.grey[700],
+                  size: 34.0,
                 ),
                 Expanded(
                   child: ListView(
