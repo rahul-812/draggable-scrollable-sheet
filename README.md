@@ -31,12 +31,14 @@ a perfect example is to use ```ListView``` as a child
 
 ```dart
 builder: (context, scrollController) {
-  return ListView(
-    physics: const BouncingScrollPhysics(),
-    controller: scrollController, // enables scrolling 
-    children: [
-      // ...
-    ],
+  return Container(
+    child: ListView(
+      physics: const BouncingScrollPhysics(),
+      controller: scrollController, // enables scrolling 
+      children: [
+        // ...
+      ],
+    ),
   );
 }
 ```
