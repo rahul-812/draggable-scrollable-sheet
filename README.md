@@ -1,4 +1,4 @@
-# amazing_flutter
+# draggable scrollable sheet example
 
 A new Flutter project.
 
